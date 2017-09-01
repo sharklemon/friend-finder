@@ -8,11 +8,9 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
     <!-- Custom styles for this template 
     <link href="style.css" rel="stylesheet">-->
@@ -89,6 +87,20 @@
       </div>
 
       <hr>
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Your best match!</h5>
+            </div>
+            <div class="modal-body">
+              <p id="namef">Modal body text goes here.</p>
+              <img src="" id="picf" alt="profile pic" style="width:304px;height:228px;">
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <footer>
         <p>Anastasia Mark &copy; 2017</p>
@@ -116,20 +128,16 @@ $("#submitor").on("click", function(event) {
   console.log(newUser);
   $.post("/api/friends", newUser)
   .done(function(data) {
-    console.log("you posted" + data);
-    
-    
-    // $('#myModal').on('shown.bs.modal', function () {
-    // $('#myInput').focus()
-})
+    console.log("you posted" + data[0]);
+    console.log("you posted" + data.name);
+    $('#myModal').modal('show');
+    $('#myModal').on('shown.bs.modal', function () {
+      $('#namef').html(data.name)
+      $("#picf").attr("src",data.pic);
+    })
   });
 });
 
 </script>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   </body>
 </html>

@@ -84,9 +84,8 @@ app.post("/api/friends", function(req, res) {
 		throw err;
 		}
 		console.log("you entered it, name was " + req.body.name);
+		res.send(bestmatchprofile);
 	});
-
-	res.send(bestmatchprofile);
 
 });
 
