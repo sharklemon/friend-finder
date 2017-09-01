@@ -1,12 +1,19 @@
 var express = require("express");
 var app = express();
-var PORT = process.env.PORT || 3000;
-
+var bodyParser = require("body-parser");
+var path = require('path');
 var exphbs = require("express-handlebars");
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '/app/public')));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+var port = process.env.PORT || 3000;
 
 var mysql = require("mysql");
 
@@ -26,14 +33,55 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 });
 
+app.get("/", function(req, res) {
+	res.sendFile(path.join(__dirname, "/app/public/home.html"));
+});
+app.get("/survey", function(req, res) {
+	res.sendFile(path.join(__dirname, "/app/public/survey.html"));
+});
 
 app.get("/api/friends", function(req, res) {
   connection.query("SELECT * FROM answerfiles;", function(err, data) {
     if (err) {
       throw err;
     }
-    res.render("index", { plans: data });
+    res.json(data);
   });
 });
 
+
+app.post("/api/friends", function(req, res) {
+	console.log("name is "+req.body.name);
+	var values = [req.body.name, req.body.pic, parseInt(req.body.q1.charAt(0)), parseInt(req.body.q2.charAt(0)), parseInt(req.body.q3.charAt(0)), parseInt(req.body.q4.charAt(0)), parseInt(req.body.q5.charAt(0))];
+	var friendsdata = []
+	var sql1 = "SELECT * FROM answerfiles"
+	var 
+	
+	connection.query(sql1, function(err, result) {
+		if(err) throw err;
+		console.log("results in "+result);
+		for(val i=0;i<result.length;i++){
+			var
+		}
+	});
+
+	var sql2 = "INSERT INTO answerfiles (name, pic, q1, q2, q3, q4, q5) VALUES (?)";
+	connection.query(sql2, [values], function(err, result) {
+		if(err){
+		throw err;
+		}
+		console.log("you entered it, name was " + req.body.name);
+	});
+});
+
+
 app.listen(port);
+
+
+
+
+
+//app.use('/routing/apiRoutes')
+// require("./routing/apiRoutes")(app);
+// require("./routing/htmlRoutes")(app);
+//app.use(express.static('public'));

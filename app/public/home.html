@@ -10,6 +10,11 @@
     <!-- Bootstrap core CSS -->
     <link href="https://getbootstrap.com/docs/3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
     <!-- Custom styles for this template 
     <link href="style.css" rel="stylesheet">-->
   </head>
@@ -21,7 +26,7 @@
       <div class="container">
         <h1>Friend Finder</h1>
         <p>Connect with other humans (hopefully) based on answers to insightful questions that reveal who you *really* are.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" id="sumbitNOW">Take the survey &raquo;</a></p>
       </div>
     </div>
 
@@ -37,14 +42,22 @@
       </footer>
     </div> <!-- /container -->
 
+<script type="text/javascript">
+
+$("#sumbitNOW").on("click", function(event) {
+  console.log("you are in submit")
+  event.preventDefault();
+  window.location.href = '/survey';
+});
+
+</script>
+
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
