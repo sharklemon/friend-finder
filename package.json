@@ -1,0 +1,26 @@
+{
+  "name": "friend-finder",
+  "version": "1.0.0",
+  "description": "hw",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sharklemon/friend-finder.git"
+  },
+  "author": "Anastasia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sharklemon/friend-finder/issues"
+  },
+  "homepage": "https://github.com/sharklemon/friend-finder#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "express-handler": "^0.2.0",
+    "mysql": "^2.14.1"
+  }
+}
