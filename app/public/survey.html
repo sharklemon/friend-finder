@@ -117,6 +117,11 @@ $("#submitor").on("click", function(event) {
   $.post("/api/friends", newUser)
   .done(function(data) {
     console.log("you posted" + data);
+    
+    
+    // $('#myModal').on('shown.bs.modal', function () {
+    // $('#myInput').focus()
+})
   });
 });
 

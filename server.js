@@ -52,17 +52,30 @@ app.get("/api/friends", function(req, res) {
 
 app.post("/api/friends", function(req, res) {
 	console.log("name is "+req.body.name);
+	var scores =[parseInt(req.body.q1.charAt(0)), parseInt(req.body.q2.charAt(0)), parseInt(req.body.q3.charAt(0)), parseInt(req.body.q4.charAt(0)), parseInt(req.body.q5.charAt(0))];
 	var values = [req.body.name, req.body.pic, parseInt(req.body.q1.charAt(0)), parseInt(req.body.q2.charAt(0)), parseInt(req.body.q3.charAt(0)), parseInt(req.body.q4.charAt(0)), parseInt(req.body.q5.charAt(0))];
-	var friendsdata = []
 	var sql1 = "SELECT * FROM answerfiles"
-	var 
+	var bestmatchprofile = ""
 	
 	connection.query(sql1, function(err, result) {
+		var scorearray = []
 		if(err) throw err;
-		console.log("results in "+result);
-		for(val i=0;i<result.length;i++){
-			var
+		console.log("results in length of "+result.length);
+		for(var i=0; i < result.length; i++){
+			var thismatch = [result[i].q1, result[i].q2, result[i].q3, result[i].q4, result[i].q5];
+			var score = 0;
+			console.log("we are in loop "+i+"and their array is " + thismatch);
+			for(var z=0;z<5;z++){
+				score = score + Math.abs(thismatch[z]-scores[z]);
+				console.log("comparison# " +z+" ||   this match: " +thismatch[z]+" comparison: " + scores[z]+ " new score: " +score);
+			}
+			scorearray.push(parseInt(score));	
+			console.log("score array is" + scorearray);
 		}
+		var bestmatch = scorearray.indexOf(Math.min(...scorearray));
+		console.log("bestmach is " +bestmatch);
+		bestmatchprofile=result[bestmatch];
+		console.log(bestmatchprofile);
 	});
 
 	var sql2 = "INSERT INTO answerfiles (name, pic, q1, q2, q3, q4, q5) VALUES (?)";
@@ -72,6 +85,9 @@ app.post("/api/friends", function(req, res) {
 		}
 		console.log("you entered it, name was " + req.body.name);
 	});
+
+	res.send(bestmatchprofile);
+
 });
 
 
